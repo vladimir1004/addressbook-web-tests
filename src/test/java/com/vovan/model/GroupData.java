@@ -1,4 +1,4 @@
-package com.vovan;
+package com.vovan.model;
 
 public class GroupData {
   private final String name;
