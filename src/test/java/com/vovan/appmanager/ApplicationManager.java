@@ -7,6 +7,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.BrowserType;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
@@ -23,11 +24,11 @@ public class ApplicationManager {
   }
 
   public void init() {
-       if(browser == BrowserType.FIREFOX){
+       if(Objects.equals(browser, BrowserType.FIREFOX)){
       driver = new FirefoxDriver();
-    } else if(browser==BrowserType.CHROME){
+    } else if(Objects.equals(browser, BrowserType.CHROME)){
     driver = new ChromeDriver();
-    } else if(browser==BrowserType.EDGE){
+    } else if(Objects.equals(browser, BrowserType.EDGE)){
       driver = new EdgeDriver();
     }
 
