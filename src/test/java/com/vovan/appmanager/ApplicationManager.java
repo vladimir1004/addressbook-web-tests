@@ -18,10 +18,14 @@ public class ApplicationManager {
   private NavigationHelper navigationHelper;
   private GroopHelper groopHelper;
   private String browser;
+  private ContactHelper contactHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
   }
+
+
+
 
   public void init() {
        if(Objects.equals(browser, BrowserType.FIREFOX)){
@@ -32,11 +36,12 @@ public class ApplicationManager {
       driver = new EdgeDriver();
     }
 
-    driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     driver.get("http://localhost/addressbook/");
     groopHelper = new GroopHelper(driver);
     navigationHelper = new NavigationHelper(driver);
     sessionHelper = new SessionHelper(driver);
+    contactHelper = new ContactHelper(driver);
 
     sessionHelper.login("admin", "secret");
   }
@@ -53,5 +58,11 @@ public class ApplicationManager {
 
   public NavigationHelper getNavigationHelper() {
     return navigationHelper;
+  }
+  public ContactHelper getContactHelper() {
+    return contactHelper;
+  }
+  public SessionHelper getSessionHelper() {
+    return sessionHelper;
   }
 }
