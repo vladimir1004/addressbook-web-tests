@@ -21,12 +21,9 @@ public class GroopHelper extends HelperBase{
 
   public void fillGroupForm(GroupData groupData) {
     type(By.name("group_name"), groupData.getName());
-    click(By.name("group_header"));
-    driver.findElement(By.name("group_header")).clear();
-    driver.findElement(By.name("group_header")).sendKeys(groupData.getHeader());
-    click(By.name("group_footer"));
-    driver.findElement(By.name("group_footer")).clear();
-    driver.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
+    type(By.name("group_header"),groupData.getHeader());
+    type(By.name("group_footer"),groupData.getFooter());
+
   }
 
   public void initGroupCreation() {
@@ -59,4 +56,9 @@ public class GroopHelper extends HelperBase{
   public boolean isThereAGroup() {
     return isElementPresent(By.name("selected[]"));
   }
+
+  public int getGroupCount() {
+   return driver.findElements(By.name("selected[]")).size();
+  }
 }
+
