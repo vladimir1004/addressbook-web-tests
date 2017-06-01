@@ -37,7 +37,7 @@ public class ApplicationManager {
     }
 
     driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-    driver.get("http://localhost/addressbook/group.php");
+    driver.get("http://localhost/addressbook/");
     groopHelper = new GroopHelper(driver);
     navigationHelper = new NavigationHelper(driver);
     sessionHelper = new SessionHelper(driver);
