@@ -15,7 +15,8 @@ public class GroupDeletionTest extends TestBase {
     if(!app.getGroopHelper().isThereAGroup()){
       app.getGroopHelper().createGroupe(new GroupData("test1", null, null));
     }
-    app.getGroopHelper().selectGroups();
+    //удаляем по номеру группы бефор -1 значит последняя
+    app.getGroopHelper().selectGroups(before -1);
     app.getGroopHelper().deleteSelectedGroups();
     app.getGroopHelper().returnToGroupPage();
     int after = app.getGroopHelper().getGroupCount();
