@@ -3,27 +3,39 @@ package com.vovan.tests;
 
 import com.vovan.model.GroupData;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
 public class GroupDeletionTest extends TestBase {
 
+  @BeforeMethod
+  public void ensurePreconditions() {
+    app.goTo().groupPage();
+
+    if (app.group().list().size() == 0) {
+      app.group().create(new GroupData("test1", null, null));
+    }
+  }
+
 
   @Test
   public void testGroupDeletion() throws Exception {
-    app.getNavigationHelper().goToGroupPage();
-    if(!app.getGroopHelper().isThereAGroup()){
-      app.getGroopHelper().createGroupe(new GroupData("test1", null, null));
-    }
-    List<GroupData> before = app.getGroopHelper().getGroupList();
-    app.getGroopHelper().selectGroups(before.size() -1);
-    app.getGroopHelper().deleteSelectedGroups();
-    app.getGroopHelper().returnToGroupPage();
-    List<GroupData> after = app.getGroopHelper().getGroupList();
-    Assert.assertEquals(after, before.size() -1);
+
+    List<GroupData> before = app.group().list();
+    int index = before.size() - 1;
+    app.group().delete(index);
+    List<GroupData> after = app.group().list();
+    Assert.assertEquals(after.size(), before.size()-1);
+
+    before.remove(index);
+    Assert.assertEquals(before, after);
+
 
   }
+
+
 
 }
 

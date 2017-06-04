@@ -52,11 +52,12 @@ public class ApplicationManager {
   }
 
 
-  public GroopHelper getGroopHelper() {
+
+  public GroopHelper group() {
     return groopHelper;
   }
 
-  public NavigationHelper getNavigationHelper() {
+  public NavigationHelper goTo() {
     return navigationHelper;
   }
   public ContactHelper getContactHelper() {
