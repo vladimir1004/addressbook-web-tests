@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class GroopHelper extends HelperBase{
+public class GroopHelper extends HelperBase {
 
   public GroopHelper(WebDriver driver) {
     super(driver);
@@ -25,8 +25,8 @@ public class GroopHelper extends HelperBase{
 
   public void fillGroupForm(GroupData groupData) {
     type(By.name("group_name"), groupData.getName());
-    type(By.name("group_header"),groupData.getHeader());
-    type(By.name("group_footer"),groupData.getFooter());
+    type(By.name("group_header"), groupData.getHeader());
+    type(By.name("group_footer"), groupData.getFooter());
 
   }
 
@@ -40,7 +40,7 @@ public class GroopHelper extends HelperBase{
 
   public void selectGroups(int index) {
     driver.findElements(By.name("selected[]")).get(index).click();
-      }
+  }
 
   public void initGroupModification() {
     click(By.name("edit"));
@@ -56,6 +56,7 @@ public class GroopHelper extends HelperBase{
     submitGroupCreation();
     returnToGroupPage();
   }
+
   public void modify(int index, GroupData group) {
     selectGroups(index);
     initGroupModification();
@@ -63,6 +64,7 @@ public class GroopHelper extends HelperBase{
     submitGroupModification();
     returnToGroupPage();
   }
+
   public void delete(int index) {
     selectGroups(index);
     deleteSelectedGroups();
@@ -74,20 +76,19 @@ public class GroopHelper extends HelperBase{
   }
 
   public int getGroupCount() {
-   return driver.findElements(By.name("selected[]")).size();
+    return driver.findElements(By.name("selected[]")).size();
   }
 
   public List<GroupData> list() {
-    List<GroupData> groups = new ArrayList<GroupData>() ;
+    List<GroupData> groups = new ArrayList<GroupData>();
     List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
-    for (WebElement element : elements){
+    for (WebElement element : elements) {
       String name = element.getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      GroupData group = new GroupData(id, name, null, null);
-      groups.add(group);
+      groups.add(new GroupData().withId(id).withName(name));
     }
     return groups;
-    }
   }
+}
 
 
