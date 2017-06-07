@@ -6,7 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class GroopHelper extends HelperBase {
@@ -38,8 +40,10 @@ public class GroopHelper extends HelperBase {
     click(By.name("delete"));
   }
 
-  public void selectGroups(int index) {
-    driver.findElements(By.name("selected[]")).get(index).click();
+
+
+  public void selectGroupById(int id) {
+    driver.findElement(By.cssSelector("input[value = '" + id + "']")).click();
   }
 
   public void initGroupModification() {
@@ -57,19 +61,15 @@ public class GroopHelper extends HelperBase {
     returnToGroupPage();
   }
 
-  public void modify(int index, GroupData group) {
-    selectGroups(index);
+  public void modify( GroupData group) {
+    selectGroupById(group.getId());
     initGroupModification();
     fillGroupForm(group);
     submitGroupModification();
     returnToGroupPage();
   }
 
-  public void delete(int index) {
-    selectGroups(index);
-    deleteSelectedGroups();
-    returnToGroupPage();
-  }
+
 
   public boolean isThereAGroup() {
     return isElementPresent(By.name("selected[]"));
@@ -88,6 +88,22 @@ public class GroopHelper extends HelperBase {
       groups.add(new GroupData().withId(id).withName(name));
     }
     return groups;
+  }
+  public Set<GroupData> all() {
+    Set<GroupData> groups = new HashSet<GroupData>();
+    List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
+    for (WebElement element : elements) {
+      String name = element.getText();
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      groups.add(new GroupData().withId(id).withName(name));
+    }
+    return groups;
+  }
+
+  public void delete(GroupData group) {
+    selectGroupById(group.getId());
+    deleteSelectedGroups();
+    returnToGroupPage();
   }
 }
 
