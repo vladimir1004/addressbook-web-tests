@@ -7,9 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 public class GroopHelper extends HelperBase {
@@ -55,20 +53,7 @@ public class GroopHelper extends HelperBase {
     click(By.name("update"));
   }
 
-  public void create(GroupData group) {
-    initGroupCreation();
-    fillGroupForm(group);
-    submitGroupCreation();
-    returnToGroupPage();
-  }
 
-  public void modify( GroupData group) {
-    selectGroupById(group.getId());
-    initGroupModification();
-    fillGroupForm(group);
-    submitGroupModification();
-    returnToGroupPage();
-  }
 
 
 
@@ -76,7 +61,7 @@ public class GroopHelper extends HelperBase {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public int getGroupCount() {
+  public int count() {
     return driver.findElements(By.name("selected[]")).size();
   }
 
@@ -90,20 +75,44 @@ public class GroopHelper extends HelperBase {
     }
     return groups;
   }
+
+
+  private  Groups groupCache = null;
   public Groups all() {
-    Groups groups = new Groups();
+    if (groupCache != null){
+      return new Groups(groupCache);
+    }
+   groupCache = new Groups();
     List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
     for (WebElement element : elements) {
       String name = element.getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      groups.add(new GroupData().withId(id).withName(name));
+      groupCache.add(new GroupData().withId(id).withName(name));
     }
-    return groups;
+    return new Groups(groupCache);
+  }
+
+  public void create(GroupData group) {
+    initGroupCreation();
+    fillGroupForm(group);
+    submitGroupCreation();
+    groupCache = null;
+    returnToGroupPage();
+  }
+
+  public void modify( GroupData group) {
+    selectGroupById(group.getId());
+    initGroupModification();
+    fillGroupForm(group);
+    submitGroupModification();
+    groupCache = null;
+    returnToGroupPage();
   }
 
   public void delete(GroupData group) {
     selectGroupById(group.getId());
     deleteSelectedGroups();
+    groupCache = null;
     returnToGroupPage();
   }
 }

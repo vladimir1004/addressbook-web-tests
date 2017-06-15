@@ -9,10 +9,10 @@ public class ContactModificationTests extends TestBase {
 @Test(enabled = false)
   public void testsContactModification (){
   app.goTo().goTOHomePage();
-  app.getContactHelper().initContactModification();
-  app.getContactHelper().fillContactFrom(new ContactData("test_name", "test_surname",null),false);
-  app.getContactHelper().submitContactModification();
-  app.getContactHelper().returnToHomePage();
+  app.contact().initContactModification();
+  app.contact().fillContactFrom(new ContactData(),false);
+  app.contact().submitContactModification();
+  app.contact().returnToHomePage();
 
   }
 }
