@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,17 +20,18 @@ public class ContactHelper extends HelperBase {
     click(By.linkText("add new"));
   }
 
-  public void fillContactFrom(ContactData contactData, boolean creation){
-type(By.name("firstname"), contactData.getFirstname());
-type(By.name("lastname"), contactData.getLastname());
-attach(By.name("photo"), contactData.getPhoto());
-if (creation){
-  new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-}
-else {
-  Assert.assertFalse(isElementPresent(By.name("new_group")));
-}
-}
+  public void fillContactFrom(ContactData contactData, boolean creation) {
+    type(By.name("firstname"), contactData.getFirstname());
+    type(By.name("lastname"), contactData.getLastname());
+    attach(By.name("photo"), contactData.getPhoto());
+    if (creation) {
+      if (contactData.getGroup() != null) {
+        new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      } else {
+//        Assert.assertFalse(isElementPresent(By.name("new_group")));
+      }
+    }
+  }
 
   public void submitContactCreation(){
     click(By.name("submit"));

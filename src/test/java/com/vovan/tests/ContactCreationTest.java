@@ -12,9 +12,9 @@ public class ContactCreationTest extends TestBase {
   public void testContactCreation(){
     app.goTo().goTOHomePage();
     app.contact().initContactCreation();
-    File photo = new File("src/test/resources/stru.png");
+    File photo = new File("src/test/resources/20150828_110138.jpg");
     app.contact().fillContactFrom(new ContactData()
-            .withFirstName("test name").withLastname("test surname").withPhoto(photo),true);
+            .withFirstName("test_name").withLastname("test_surname").withPhoto(photo),true);
     app.contact().submitContactCreation();
     app.contact().returnToHomePage();
 
@@ -23,9 +23,13 @@ public class ContactCreationTest extends TestBase {
   }
   @Test
   public  void testCurrentDir(){
+
+    // . is current directory
     File currentDir = new File(".");
+    // exit absolutePath
     System.out.println( currentDir.getAbsolutePath());
-    File photo = new File("src/test/resources/20150828_110138.jpg");
+    //File photo = new File("src/test/resources/stru.png");
+   File photo = new File("src/test/resources/20150828_110138.jpg");
     System.out.println( photo.getAbsolutePath());
     System.out.println(photo.exists());
   }
