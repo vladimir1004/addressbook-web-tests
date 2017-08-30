@@ -10,10 +10,5 @@
         </classes>
     </test>
 
-    <test name="Contacts">
-        <classes>
-            <class name="com.vovan.tests.ContactCreationTest"/>
 
-        </classes>
-    </test>
 </suite>
