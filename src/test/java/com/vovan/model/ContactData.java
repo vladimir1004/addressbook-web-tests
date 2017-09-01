@@ -1,31 +1,78 @@
 package com.vovan.model;
 
 
-import java.io.File;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
+import java.io.File;
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
+@Id
+@Column (name = "id")
+  private int id;
+
+@Column (name = "firstname")
   private  String firstname;
 
-  private String group;
-  private String homePhone;
-  private String mobilePhone;
-  private String workPhone;
-  private int id;
+  @Override
+  public String toString() {
+    return "ContactData{" +
+            "id=" + id +
+            ", firstname='" + firstname + '\'' +
+            ", lastname='" + lastname + '\'' +
+            '}';
+  }
+
+  @Column (name = "lastname")
   private String lastname;
-  private File photo;
+
+  @Transient
+  private String group;
+
+  @Column (name = "home")
+  @Type(type = "text")
+  private String homePhone;
+
+  @Column (name = "mobile")
+  @Type(type = "text")
+  private String mobilePhone;
+
+  @Column (name = "work")
+  @Type(type = "text")
+  private String workPhone;
+
+  @Transient
+  private String allPhones;
+
+  @Column (name = "photo")
+  @Type(type = "text")
+  private String photo;
+
+  public File getPhoto() { return new File(photo); }
+
+  public ContactData withPhoto(File photo) {
+    this.photo = photo.getPath();
+    return this;
+  }
+  public String getAllPhones() { return allPhones; }
+
+  public ContactData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
+
+
+
+
 
   public int getId() {
     return id;
   }
 
-  public File getPhoto() {
-    return photo;
-  }
 
-  public ContactData withPhoto(File photo) {
-    this.photo = photo;
-    return this;
-  }
+
+
 
   public ContactData withId(int id) {
     this.id = id;

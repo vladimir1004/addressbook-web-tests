@@ -1,5 +1,6 @@
 package com.vovan.tests;
 
+import com.vovan.model.ContactData;
 import com.vovan.model.GroupData;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -39,6 +40,17 @@ public class HbConnectionTest {
     List <GroupData> result = session.createQuery("from GroupData").list();
     for (GroupData group : result) {
       System.out.println(group);
+    }
+    session.getTransaction().commit();
+    session.close();
+  }
+  @Test
+  public void testHbConnection2() {
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    List <ContactData> result = session.createQuery("from ContactData where deprecated = '0000-00-00'").list();
+    for (ContactData contact : result) {
+      System.out.println(contact);
     }
     session.getTransaction().commit();
     session.close();

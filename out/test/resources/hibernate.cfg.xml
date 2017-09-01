@@ -36,6 +36,7 @@
 
         <!-- Names the annotated entity class -->
         <mapping class="com.vovan.model.GroupData"/>
+        <mapping class="com.vovan.model.ContactData"/>
 
     </session-factory>
 
