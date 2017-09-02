@@ -1,6 +1,4 @@
 package com.vovan.appmanager;
-
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -19,6 +17,7 @@ public class ApplicationManager {
   private GroopHelper groopHelper;
   private String browser;
   private ContactHelper contactHelper;
+  private DbHelper dbHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -28,6 +27,7 @@ public class ApplicationManager {
 
 
   public void init() {
+    dbHelper = new DbHelper();
        if(Objects.equals(browser, BrowserType.FIREFOX)){
       driver = new FirefoxDriver();
     } else if(Objects.equals(browser, BrowserType.CHROME)){
@@ -44,6 +44,7 @@ public class ApplicationManager {
     contactHelper = new ContactHelper(driver);
 
     sessionHelper.login("admin", "secret");
+
   }
 
 
@@ -66,8 +67,7 @@ public class ApplicationManager {
   public SessionHelper getSessionHelper() {
     return sessionHelper;
   }
+  public DbHelper db(){return dbHelper; }
 
-  //public ContactHelper contact() {
-    //return contactHelper;
-  //}
+
 }
